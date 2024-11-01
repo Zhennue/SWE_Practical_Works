@@ -1,106 +1,105 @@
+from collections import deque
+
 class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
 
-class LinkedList:
+class BinarySearchTree:
     def __init__(self):
-        self.head = None
+        self.root = None
 
-    def append(self, data):
-        new_node = Node(data)
-        if not self.head:
-            self.head = new_node
-            return
-        current = self.head
-        while current.next:
-            current = current.next
-        current.next = new_node
+    def insert(self, value):
+        if not self.root:
+            self.root = Node(value)
+        else:
+            self._insert_recursive(self.root, value)
 
-    def display(self):
-        elements = []
-        current = self.head
-        while current:
-            elements.append(current.data)
-            current = current.next
-        print(" -> ".join(map(str, elements)))
-
-    def find_middle(self):
-        slow = self.head
-        fast = self.head
-        while fast and fast.next:
-            slow = slow.next
-            fast = fast.next.next
-        return slow.data if slow else None
-
-    def has_cycle(self):
-        slow = fast = self.head
-        while fast and fast.next:
-            slow = slow.next
-            fast = fast.next.next
-            if slow == fast:
-                return True
-        return False
-
-    def remove_duplicates(self):
-        if not self.head:
-            return
-        seen = set()
-        current = self.head
-        seen.add(current.data)
-        while current.next:
-            if current.next.data in seen:
-                current.next = current.next.next
+    def _insert_recursive(self, node, value):
+        if value < node.value:
+            if node.left is None:
+                node.left = Node(value)
             else:
-                seen.add(current.next.data)
-                current = current.next
-
-    @staticmethod
-    def merge_sorted(list1, list2):
-        dummy = Node(0)
-        tail = dummy
-        current1, current2 = list1.head, list2.head
-
-        while current1 and current2:
-            if current1.data < current2.data:
-                tail.next = current1
-                current1 = current1.next
+                self._insert_recursive(node.left, value)
+        else:
+            if node.right is None:
+                node.right = Node(value)
             else:
-                tail.next = current2
-                current2 = current2.next
-            tail = tail.next
+                self._insert_recursive(node.right, value)
 
-        tail.next = current1 if current1 else current2
-        merged_list = LinkedList()
-        merged_list.head = dummy.next
-        return merged_list
+    # 1. Find the maximum value in the BST
+    def find_max(self):
+        if not self.root:
+            return None
+        current = self.root
+        while current.right:
+            current = current.right
+        return current.value
 
-# Test cases
-ll = LinkedList()
-ll.append(1)
-ll.append(2)
-ll.append(3)
-ll.append(4)
-ll.append(5)
+    # 2. Count the total number of nodes in the BST
+    def count_nodes(self):
+        return self._count_nodes_recursive(self.root)
 
-# Find middle element
-print("Middle element:", ll.find_middle())  # Expected: 3
+    def _count_nodes_recursive(self, node):
+        if not node:
+            return 0
+        return 1 + self._count_nodes_recursive(node.left) + self._count_nodes_recursive(node.right)
 
-# Detect cycle
-print("Has cycle:", ll.has_cycle())  # Expected: False
+    # 3. Level-order traversal (breadth-first search)
+    def level_order_traversal(self):
+        if not self.root:
+            return []
+        result = []
+        queue = deque([self.root])
+        while queue:
+            node = queue.popleft()
+            result.append(node.value)
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        return result
 
-# Remove duplicates
-ll.append(3)
-ll.append(2)
-ll.remove_duplicates()
-print("After removing duplicates:")
-ll.display()  # Expected: 1 -> 2 -> 3 -> 4 -> 5
+    # 4. Find the height of the BST
+    def find_height(self):
+        return self._find_height_recursive(self.root)
 
-# Merge two sorted lists
-ll2 = LinkedList()
-for value in [2, 4, 6, 8]:
-    ll2.append(value)
+    def _find_height_recursive(self, node):
+        if not node:
+            return -1
+        left_height = self._find_height_recursive(node.left)
+        right_height = self._find_height_recursive(node.right)
+        return 1 + max(left_height, right_height)
 
-merged_ll = LinkedList.merge_sorted(ll, ll2)
-print("Merged sorted list:")
-merged_ll.display()  # Expected: 1 -> 2 -> 2 -> 3 -> 4 -> 4 -> 5 -> 6 -> 8
+    # 5. Check if the tree is a valid BST
+    def is_valid_bst(self):
+        return self._is_valid_bst_recursive(self.root, float('-inf'), float('inf'))
+
+    def _is_valid_bst_recursive(self, node, min_value, max_value):
+        if not node:
+            return True
+        if not (min_value < node.value < max_value):
+            return False
+        return (self._is_valid_bst_recursive(node.left, min_value, node.value) and
+                self._is_valid_bst_recursive(node.right, node.value, max_value))
+
+# Testing the methods
+bst = BinarySearchTree()
+for value in [5, 3, 7, 2, 4, 6, 8]:
+    bst.insert(value)
+
+# Test find_max
+print("Maximum value:", bst.find_max())  # Expected: 8
+
+# Test count_nodes
+print("Total nodes:", bst.count_nodes())  # Expected: 7
+
+# Test level_order_traversal
+print("Level-order traversal:", bst.level_order_traversal())  # Expected: [5, 3, 7, 2, 4, 6, 8]
+
+# Test find_height
+print("Height of BST:", bst.find_height())  # Expected: 2
+
+# Test is_valid_bst
+print("Is valid BST:", bst.is_valid_bst())  # Expected: True
