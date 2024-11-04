@@ -1,1 +1,27 @@
-# SWE_Practical_Works
+## Lab2
+This repository implements a set of functions for analyzing text files. It includes a read_file function to read the content of a specified file, followed by several analytical functions: count_lines counts the number of lines, count_words and count_unique_words provide total and unique word counts, respectively. The most_common_word function identifies the most frequently occurring word, while find_longest_word locates the longest word in the text. Additional functions calculate word occurrences, average word length, and the percentage of words longer than the average. Each function is tested using a sample text file, offering valuable insights into its content.
+
+## Lab3
+This code implements a series of functions to analyze and compute Fibonacci numbers. The fibonacci_recursive function calculates Fibonacci numbers using recursion, while fibonacci_iterative generates a list of numbers through an iterative approach. The fibonacci_exceeds function finds the index of the first Fibonacci number that exceeds a specified value, and is_fibonacci_number checks if a given number is part of the Fibonacci sequence. The fibonacci_ratio function calculates the ratios of consecutive Fibonacci numbers, illustrating how they approach the golden ratio. Each function is tested with sample inputs, demonstrating their effectiveness in working with Fibonacci numbers.
+
+## Lab4
+This code implements several search algorithms, including modifications for enhanced functionality and performance comparison. The linear_search_all function returns all indices of a target value in an array. The binary_search_insertion_point function finds the correct index to insert a target in a sorted list. Both linear_search_count_comparisons and binary_search_count_comparisons count the number of comparisons made during searches. The jump_search function optimizes search in sorted lists by skipping steps and then performing a linear search. Finally, the compare_search_algorithms function tests and compares the performance of all three methods on a larger dataset, demonstrating their efficiency in finding values.
+
+## Lab5
+This code defines a Stack class and implements several algorithms and data structures using stacks and queues. The Stack class supports basic operations like push, pop, peek, and checking if it's empty. The evaluate_postfix function computes the value of postfix expressions using a stack. The QueueWithStacks class implements a queue using two stacks to maintain FIFO order. Additionally, a simple Queue class is provided for a task scheduler that processes tasks in the order they are added. Finally, the infix_to_postfix function converts infix expressions to postfix notation using a stack, facilitating easier evaluation of mathematical expressions.
+
+## Lab6
+This code defines a Node class and a LinkedList class, providing various operations for managing linked lists. The Node class represents an element in the list, while the LinkedList class includes methods to append, insert, delete, and display nodes. Additional functionalities include searching for a value, reversing the list, finding the middle element, detecting cycles, removing duplicates, and merging two sorted linked lists. The code includes tests demonstrating these features, such as finding the middle element, checking for cycles, removing duplicates, and merging two sorted lists into one.
+
+## Lab7
+This code implements a BinarySearchTree (BST) with a Node class for tree nodes. The BinarySearchTree class includes methods to insert values, find the maximum value, count nodes, perform level-order traversal, calculate the height, and check if the tree is a valid BST. Key functionalities include inserting values in the correct position, using a queue for breadth-first traversal, and recursive methods for counting nodes and checking tree validity. The provided test scenario demonstrates these methods, confirming their expected behavior.
+
+## Lab8
+The code implements three sorting algorithms: Quick Sort, Bubble Sort with Early Stop, and a Hybrid Merge Sort that incorporates Insertion Sort for smaller subarrays.
+Quick Sort is an efficient, in-place algorithm that partitions an array around a pivot and sorts the partitions recursively.
+Bubble Sort with Early Stop enhances the traditional approach by halting the process if no swaps are made during a pass, indicating that the array is sorted.
+Hybrid Merge Sort switches to Insertion Sort for smaller subarrays to improve performance.
+Additionally, there’s a visualization function for Bubble Sort that uses matplotlib to animate the sorting process, providing a clear view of how elements are swapped during execution. Each algorithm is tested on a sample array, and the results are printed or visualized accordingly.
+
+## Lab9
+The suggested directory structure for your project organizes files for better management and clarity. The root directory (your-repo/) contains a graph/ folder for the main graph implementation, including the Graph class. The tests/ folder holds unit tests for verifying functionality. A requirements.txt file lists dependencies for easy installation, while a README.md provides an overview of the project, including usage instructions. This structure enhances maintainability and usability, making it easier for others to navigate and understand your work.
